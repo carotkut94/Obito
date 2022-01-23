@@ -1,7 +1,6 @@
 package com.death.obito.android
 
 import android.os.Bundle
-import com.death.obito.Greeting
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -11,12 +10,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.death.obito.android.ui.theme.AndroidAppTheme
-
-fun greet(): String {
-    return Greeting().greeting()
-}
+import com.death.obito.db.DatabaseDriverFactory
+import com.death.obito.provider.ServiceProvider
 
 class MainActivity : ComponentActivity() {
+
+    private val serviceProvider  by lazy {
+        ServiceProvider.Builder(DatabaseDriverFactory(applicationContext)).build()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -25,10 +27,15 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    VersionText(greet())
+                    VersionText("Sample Text")
                 }
             }
         }
+        saveServer()
+    }
+
+    private fun saveServer(){
+        serviceProvider.appService.db.saveServer("Server", "Sample Server")
     }
 }
 

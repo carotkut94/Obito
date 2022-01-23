@@ -6,7 +6,7 @@ plugins {
 android {
     compileSdk = 31
     defaultConfig {
-        applicationId = "com.death.obito.android"
+        applicationId = "com.android"
         minSdk = 28
         targetSdk = 31
         versionCode = 1
