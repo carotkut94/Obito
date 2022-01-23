@@ -2,6 +2,9 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+    id("kotlinx-serialization")
+    id("kotlin-parcelize")
+    id("com.squareup.sqldelight")
 }
 
 version = "1.0"
@@ -23,14 +26,24 @@ kotlin {
     }
     
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting{
+            dependencies{
+                implementation("com.squareup.sqldelight:runtime:1.5.3")
+                implementation("io.ktor:ktor-client-core:1.5.0")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
             }
         }
-        val androidMain by getting
+        val androidMain by getting {
+            dependencies {
+                implementation("io.ktor:ktor-client-android:1.5.0")
+                implementation("com.squareup.sqldelight:android-driver:1.5.3")
+            }
+        }
         val androidTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
@@ -45,6 +58,10 @@ kotlin {
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             //iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation("io.ktor:ktor-client-ios:1.5.0")
+                implementation("com.squareup.sqldelight:native-driver:1.5.3")
+            }
         }
         val iosX64Test by getting
         val iosArm64Test by getting
