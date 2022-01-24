@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">androidApp</string>
+    <string name="servers">Servers</string>
+    <string name="add_server">add server</string>
 </resources>
